@@ -27,4 +27,19 @@ public class FirstFunction
 			//내용없음
 		}
 	}
+	
+	public void tempFunc(JspWriter out)
+	{
+		String str = "나는 문자열";
+		
+		try
+		{
+			out.println(str);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
 }
