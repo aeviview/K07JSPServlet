@@ -8,6 +8,12 @@ import java.sql.Date;
  		메소드를 가지고 있는 클래스로 일반적인 자바빈(Bean) 규약을 따른다.
 */
 
+/*
+ 우클릭 - source에서 
+ - constructors from Superclass(기본생성자)
+ - constructor using Fields(인자생성자)
+ - Getters and Setters(게터/세터)
+*/
 public class MemberDTO 
 {
 	//멤버변수
@@ -15,6 +21,7 @@ public class MemberDTO
 	private String pass;
 	private String name;
 	private java.sql.Date regidate;
+	
 	//기본생성자
 	public MemberDTO() 
 	{

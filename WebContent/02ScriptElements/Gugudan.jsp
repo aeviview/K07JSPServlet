@@ -12,7 +12,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h3>구구단출력 - 표현식으로 구현</h3>
+	<h3>구구단출력1 - 표현식으로 구현</h3>
 	<%--table>tr>td--%>
 	
 	<table border="1">

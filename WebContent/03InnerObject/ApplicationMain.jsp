@@ -16,7 +16,8 @@
 <body>
 
 	<%--
-		웹어플리케이션을 구성하는 모든 JSP(Servlet) 에서 String형의 상수를 공유할 목적으로 사용한다.
+		웹어플리케이션을 구성하는 모든 JSP(Servlet)에서
+		String형의 상수를 공유할 목적으로 사용한다.
 		web.xml에 <context-param> 엘리먼트를 통해 등록하게 된다.
 		이를 컨텍스트 초기화 파라미터라고 한다!
 		web.xml => 아주 많이 사용할 것임!
@@ -96,7 +97,7 @@
 	%>
 	
 	<ul>
-		<li>this 키어드로 사용 : <%=getRealPath() %></li>
+		<li>this 키워드로 사용 : <%=getRealPath() %></li>
 		<li>매개변수로 전달 : <%=getRealPath(application) %></li>
 		<%
 		this.app2 = application;
@@ -104,11 +105,27 @@
 		<li>멤버변수 : <%=getRealPathString() %></li>
 	</ul>
 
+	<%-- 여기 주석안의 함수 뭔지 모르겠음
 	<%
+	public void tempFunc(JspWriter out)
+	{
+		String str = "나는 문자열";
+		
+		try
+		{
+			out.println(str);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
 	out.println("하하하하");
 	FirstFunction ff = new FirstFunction();
 	ff.tempFunc();
 	%>
-
+	--%>
+	
 </body>
 </html>

@@ -19,7 +19,7 @@
 	<h2>에러발생됨 : 관리자에게 문의하세요</h2>
 	<h3>연락처 : 010-1234-5678</h3>
 	<h3>서버 업그레이드 중입니다.</h3>
-	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUH7I9oQVvClppfAXm39BVuO6wJEp3-hqyUA&usqp=CAU" width="300" alt="" />
+	<img src="http://m.aldoor.co.kr/work.gif" width="300" alt="" />
 	<h3>
 		에러내용 : <%=exception.getMessage() %>
 	</h3>
