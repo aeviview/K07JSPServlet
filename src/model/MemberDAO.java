@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 	DAO(Data Access Object)
@@ -97,6 +99,84 @@ public class MemberDAO
 		}
 		return isFlag;
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
+	
+	//로그인방법2 : 회원인증 후 MemberDTO객체에 회원정보를 저장한 후 JSP쪽으로 반환해준다.
+	public MemberDTO getMemberDTO(String uid, String upass)
+	{
+		MemberDTO dto = new MemberDTO(); //회원정보 저장을 위해 DTO객체 생성
+		
+		//회원정보를 가져오기 위한 쿼리문 작성
+		String query = "SELECT id, pass, name FROM "
+				+ " member WHERE id=? AND pass=?";
+		
+		try
+		{
+			
+			psmt = con.prepareStatement(query); //prepare 객체생성
+			psmt.setString(1, uid); //인파라미터 설정
+			psmt.setString(2, upass); //인파라미터 설정
+			rs = psmt.executeQuery(); //쿼리실행
+			
+			if(rs.next()) //오라클이 반환해준 ResultSet을 통해 결과값이 있는지 확인하고
+			{
+				dto.setId(rs.getString("id")); //결과값이 있으면 dto 객체에 저장한다
+				dto.setPass(rs.getString("pass"));
+				dto.setName(rs.getString(3));
+			}
+			else
+			{
+				System.out.println("결과값이 없습니다");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("getMemberDTO오류");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+//////////////////////////////////////////////////////////////////////////
+	
+	//로그인방법3 : DTO객체 대신 Map 컬렉션에 회원정보를 저장 후 반환한다.
+	public Map<String, String> getMemberMap(String id, String pwd)
+	{
+		//회원정보를 저장할 Map컬렉션을 생성한다
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		String query = "SELECT id, pass, name FROM "
+				+ " member WHERE id=? AND pass=?";
+		
+		try
+		{
+			psmt = con.prepareStatement(query); //prepare 객체생성
+			psmt.setString(1, id); //인파라미터 설정
+			psmt.setString(2, pwd); //인파라미터 설정
+			rs = psmt.executeQuery(); //쿼리실행
+			
+			//회원정보가 있다면 put()을 통해 정보를 저장한다
+			if(rs.next()) //오라클이 반환해준 ResultSet을 통해 결과값이 있는지 확인하고
+			{
+				maps.put("id", rs.getString(1)); //결과값이 있으면 maps 객체에 저장한다
+				maps.put("pass", rs.getString("pass"));
+				maps.put("name", rs.getString("name"));
+			}
+			else
+			{
+				System.out.println("결과값이 없습니다");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("getMemberDTO오류");
+			e.printStackTrace();
+		}
+		return maps;
+	}
+	
+//////////////////////////////////////////////////////////////////////////
 	
 	public static void main(String[] args) 
 	{		

@@ -11,6 +11,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+	지금 : <%=new java.util.Date() %>
+	<br/>
+	
+	<%
+	String name = "치영";
+	String age = "35";
+	%>
+	
+	<%= name %><br/>
+	<%= age %>
 </body>
 </html>
