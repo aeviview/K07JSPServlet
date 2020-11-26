@@ -17,7 +17,8 @@ if(font==null || font.length()==0) font="Verdana";
 <title>RequestUse.jsp</title>
 <style type="text/css">
 	/* StyleSheet내에 표현식이나 스크립트릿을 사용할 수 있다. */
-	span{
+	span
+	{
 		font-size:2em;
 		color:<%=color%>;
 		font-family:<%=font%>;

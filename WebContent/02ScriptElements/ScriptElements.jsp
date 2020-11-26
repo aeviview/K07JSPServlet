@@ -1,6 +1,7 @@
 <%--
 	[JSP의 스크립트 요소들]
 	지시자(Directive) : 페이지 속성을 지정하거나 외부문서를 포함(include)할 때 사용한다.
+				형식) <%@ 내용 %>
  --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,8 +10,9 @@
 <%--
 	[선언부(Declaration) : 스크립트렛이나 표현식에서 사용할 메소드를 선언할 때 사용한다.
 		함수는 주로 중복해서 사용하는 경우가 많으므로 src(자바영역)을 많이 사용한다.
+			형식) <%! 내용 %>
  --%>
-%>
+
 <%!
 public int add(int a, int b)
 {
@@ -56,6 +58,7 @@ public void showPrint(String str, JspWriter out)
 	스크립트릿(Scriptlet) : 주로 JSP코드를 작성하고 실행할 때 사용하는 영역이다.
 		스크립트릿은 head영역, body영역 어디서든 사용할 수 있다.
 		또한 <script>, <style>태그 내부에서도 사용할 수 있다.
+			형식) <% 내용 %>
 	 --%>
 	<%
 	int value1 = 3;
@@ -69,6 +72,7 @@ public void showPrint(String str, JspWriter out)
 	표현식(Expression) : 변수를 웹브라우저상에 출력할 때 사용한다.
 		JS의 document.write()와 동일한 역할을 한다.
 		표현식 사용시 주의할 점은 문장끝에 ;(세미클론)을 생략해야 하는 것이다!
+			형식) <%= 내용 %>
 	 --%>
 	<h3>표현식으로 변수를 화면에 출력하기</h3>
 	<%=value1 %> + <%=value2 %> = <%=addResult %>

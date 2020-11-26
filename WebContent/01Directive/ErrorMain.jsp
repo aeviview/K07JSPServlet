@@ -10,7 +10,7 @@
 <%
 //사용자가 전송한 파라미터를 request객체를 통해 받아온다.
 String strAge = request.getParameter("age");
-//콘솔에 로그로 출력된다.
+//콘솔에 로그로 출력된다.(콘솔창에만 뜬닷)
 System.out.println("strAge=" + strAge);
 //웹브라우저에 출력된다. 즉, JS의 document.write()와 같은 역할을 한다.
 out.println("strAge=" + strAge);

@@ -4,37 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Test.jsp</title>
+<title>ActionTagPage.jsp</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%!
-	public int getBaesu(int start, int end, int baesu)
-	{
-		int sum = 0;
-		
-		for(int i=start ; i<=end ; i++)
-		{	
-			if(i%baesu==0)
-			{
-				sum += i;
-			}
-		}
-		return sum;
-	}
-	%>
-	
 	<%
-	int Result = getBaesu(1, 100, 5);
-	out.println("1~100사이의 5의배수의 합 : "+ Result);
+		String actionString = "액션태그 페이지에서 생성한 변수";
 	%>
-	
-	
-	
-	
-	
+	<h2 style="color:red;">액션태그 페이지 입니다</h2>
+	<ul>
+		<li>페이지영역 : <%=pageContext.getAttribute("pageVar") %></li>
+		<li>리퀘스트영역 : <%=request.getAttribute("requestVar") %></li>
+	</ul>
 </body>
 </html>

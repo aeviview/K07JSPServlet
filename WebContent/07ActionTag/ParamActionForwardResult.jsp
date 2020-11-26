@@ -4,37 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Test.jsp</title>
+<title>ParamActionForwardResult.jsp</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%!
-	public int getBaesu(int start, int end, int baesu)
-	{
-		int sum = 0;
-		
-		for(int i=start ; i<=end ; i++)
-		{	
-			if(i%baesu==0)
-			{
-				sum += i;
-			}
-		}
-		return sum;
-	}
-	%>
+	<h2>나는 포워드된 페이지다</h2>
 	
-	<%
-	int Result = getBaesu(1, 100, 5);
-	out.println("1~100사이의 5의배수의 합 : "+ Result);
-	%>
+	<h3>파라미터로 전달된 데이터</h3>
 	
+	<ol>
+		<li>query : <%=request.getParameter("query") %></li>
+		<li>name : <%=request.getParameter("name") %></li>
+		<li>id : <%=request.getParameter("id") %></li>
+	</ol>
 	
-	
-	
-	
+	<h3>영역에 저장되어 전달된 객체</h3>
+	<%=request.getAttribute("member") %>
 </body>
 </html>
