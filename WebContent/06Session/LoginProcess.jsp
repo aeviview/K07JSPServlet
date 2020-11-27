@@ -1,17 +1,22 @@
 <%@page import="model.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <!-- 로그인 하기 위한 첫번째 Process! 각종 정보를 설정한다! -->
+    
 <%
 //폼값 받기
 String id = request.getParameter("user_id");
 String pw = request.getParameter("user_pw");
 
-//web.xml에 저장된 컨텍스트 초기화 파라미터 가져오기
+//web.xml에 저장된 컨텍스트 "초기화 파라미터" 가져오기
+//application.getInitParameter : 웹어플리케이션의 초기화 파라미터를 가져온다!
 String drv = application.getInitParameter("JDBCDriver");
 String url = application.getInitParameter("ConnectionURL");
 
 //DAO객체생성 및 DB연결 => ctrl+좌클릭해서 경로를 보고 알 수 있다~
 MemberDAO dao = new MemberDAO(drv, url);
+//DAO(Data Access Object : DB를 사용해 데이터를 조회하거나 조작하는 것)
 
 //폼값으로 받은 아이디, 패스워드를 통해 로그인 처리 함수를 호출한다
 boolean isMember = dao.isMember(id, pw);

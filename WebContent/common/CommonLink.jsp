@@ -16,11 +16,11 @@
 		<tr>
 			<td>
 				<% 
-				if(session.getAttribute("USER_ID")==null)
+				if(session.getAttribute("USER_ID")==null) //USER_ID가 null값 = 로그인 전 뜬다
 				{ %>
 					<a href="../06Session/Login.jsp">로그인</a> <%
 				} 
-				else
+				else //로그인 한 후에 "로그아웃" a태그가 뜬다
 				{ %>
 					<a href="../06Session/Logout.jsp">로그아웃</a> <%
 				} %>

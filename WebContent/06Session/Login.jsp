@@ -23,13 +23,14 @@
 
 <%
 //로그인이 되었는지 확인하기 위해 세션영역에서 속성을 가져온다
+//session.getAttribute(String key) => 값 읽어 올 때 사용!
 if(session.getAttribute("USER_ID")==null) //로그인하기 전 상태
 {
 %>
 	<script>
 	function loginValidate(fn) //로그인 폼의 빈 값 체크를 위한 함수
 	{
-		if(!fn.user_id.value)
+		if(!fn.user_id.value) //if(fn.user_id.value=="") 이거랑 같다(복잡하게 꼬아놓음)
 		{
 			alert("아이디를 입력하세요");
 			fn.user_id.focus();

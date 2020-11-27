@@ -13,7 +13,7 @@ import java.util.Map;
 		DB접근을 위한 로직으로 주로 구성된다.
 		MVC패턴에서는 M(Model)에 해당된다.
 */
-public class MemberDAO 
+public class MemberDAO
 {
 	
 	//전역변수 선언
