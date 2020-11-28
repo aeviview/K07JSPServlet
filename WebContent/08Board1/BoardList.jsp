@@ -13,6 +13,7 @@ request.setCharacterEncoding("UTF-8"); //한글처리한다!
 String drv = application.getInitParameter("JDBCDriver");
 String url = application.getInitParameter("ConnectionURL");
 
+//bbs : Bulletin Board System 으로 전자게시판이라는 뜻이다
 BbsDAO dao = new BbsDAO(drv, url); //DAO객체생성 및 DB커넥션!
 
 /*
@@ -58,6 +59,7 @@ dao.close();
 	</div>
 	<div class="row">		
 		<jsp:include page="../common/boardLeft.jsp" />
+		
 		<div class="col-9 pt-3">
 		
 		<!-- ########## 게시판의 body 부분 start ########## -->
@@ -77,7 +79,7 @@ dao.close();
 						</select>
 					</div>
 					<div class="input-group">
-						<input type="text" name="searchWord"  class="form-control"/>
+						<input type="text" name="searchWord" class="form-control"/>
 						<div class="input-group-btn">
 							<button type="submit" class="btn btn-warning">
 								<i class='fa fa-search' style='font-size:20px'></i>
@@ -105,7 +107,7 @@ dao.close();
 						<th width="15%">작성자</th>
 						<th width="10%">조회수</th>
 						<th width="15%">작성일</th>
-					<!-- th>첨부</th> -->
+					<!-- <th>첨부</th> -->
 				</tr>
 				</thead>
 				<tbody>				
@@ -132,7 +134,7 @@ dao.close();
 					int countNum = 0;
 					
 					/*
-						컬렉션에 입력된 데이터가 있다면 저장된 BbsDTO의 갯수만큼
+						컬렉션에 입력된 데이터가 있다면 저장된 BbsDTO의 갯수만큼 증가
 						즉, DB가 반환해준 레코드의 갯수만큼 반복하면서 출력한다.
 					*/
 					for(BbsDTO dto : bbs)
@@ -166,15 +168,14 @@ dao.close();
 				%>
 				</tbody>
 				</table>
-				
-				
+					
 			</div>
 			
 			<div class="row">
 				<div class="col text-right">
 					<!-- 각종 버튼 부분 -->
 <!-- 					<button type="button" class="btn">Basic</button> -->
-					<button type="button" class="btn btn-primary"
+						<button type="button" class="btn btn-primary"
 						onclick="location.href='BoardWrite.jsp';">글쓰기</button>
 						<!-- 바깥쪽에는 더블쿼테이션 안쪽에는 싱글쿼테이션을 써야지 에러가 생기지 않는다! -->
 <!-- 					<button type="button" class="btn btn-secondary">수정하기</button> -->
@@ -203,10 +204,12 @@ dao.close();
 					</ul>
 				</div>				
 			</div>		
-		<!-- ########## 게시판의 body 부분 end ########## -->
+
 		</div>
 	</div>
+	
 	<div class="row border border-dark border-bottom-0 border-right-0 border-left-0"></div>
+	
 	<jsp:include page="../common/boardBottom.jsp" />
 
 </div>
