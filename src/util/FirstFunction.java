@@ -27,6 +27,4 @@ public class FirstFunction
 			//내용없음
 		}
 	}
-	
-	
 }

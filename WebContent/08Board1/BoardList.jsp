@@ -73,7 +73,7 @@ dao.close();
 							<option value="title"
 							<%=(searchColumn!=null && searchColumn.equals("title")) ? "selected" : "" %>>제목</option>
 							<option value="content"
-							<%=(searchColumn!=null && searchColumn.equals("title")) ? "selected" : "" %>>내용</option>
+							<%=(searchColumn!=null && searchColumn.equals("content")) ? "selected" : "" %>>내용</option>
 							<!-- 이름으로 검색하려면 JDBC와 Join이 필요하므로 차후 업뎃할께 -->
 							<!-- <option value="id">작성자</option> -->
 						</select>
@@ -105,8 +105,8 @@ dao.close();
 					<th width="10%">번호</th>
 						<th width="50%">제목</th>
 						<th width="15%">작성자</th>
-						<th width="10%">조회수</th>
 						<th width="15%">작성일</th>
+						<th width="10%">조회수</th>
 					<!-- <th>첨부</th> -->
 				</tr>
 				</thead>

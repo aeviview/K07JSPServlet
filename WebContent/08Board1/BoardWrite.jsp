@@ -38,7 +38,7 @@
 				if(fm.content.value=="")
 				{
 					alert("내용을 입력하세요");
-					fm.title.focus();
+					fm.content.focus();
 					return false;
 				}
 			}

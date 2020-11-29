@@ -27,7 +27,7 @@ public class BbsDAO
 		try 
 		{
 			Class.forName(driver);
-			String id = "kosmo";
+			String id = "kosmo"; //여기의 id/pw는 오라클 kosmo계정의 id/pw 이다!
 			String pw = "1234";
 			con = DriverManager.getConnection(url, id, pw);
 			System.out.println("DB연결성공(디폴트생성자)");
@@ -216,7 +216,7 @@ public class BbsDAO
 	//조회수 증가
 	public void updateVisitCount(String num)
 	{
-		String query = "UPDATE board SET "
+		String query = " UPDATE board SET "
 				+ " visitcount = visitcount+1 "
 				+ " WHERE num=?";
 		try

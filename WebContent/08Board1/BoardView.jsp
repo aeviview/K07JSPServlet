@@ -35,6 +35,7 @@
 	</div>
 	<div class="row">		
 		<jsp:include page="../common/boardLeft.jsp" />
+		
 		<div class="col-9 pt-3">
 		
 		<!-- ########## 게시판의 body 부분 start ########## -->
@@ -83,7 +84,7 @@
 			<div class="row mb-3">
 				<div class="col-6">
 					<button type="button" class="btn btn-secondary"
-						onclick="';">수정하기</button>
+						onclick="">수정하기</button>
 					<button type="button" class="btn btn-success"
 						onclick="">삭제하기</button>
 				</div>
