@@ -64,7 +64,7 @@ public class BbsDAO
 			e.printStackTrace();
 		}
 	}
-	
+	////////////////////////////////////////////////////////////////////
 	//글쓰기 처리 메소드
 	public int insertWrite(BbsDTO dto)
 	{
@@ -199,7 +199,7 @@ public class BbsDAO
 				dto.setContent(rs.getString(3));
 				dto.setPostdate(rs.getDate("postdate"));
 				dto.setId(rs.getString("id"));
-				dto.setVisitcount(rs.getNString(6));
+				dto.setVisitcount(rs.getString(6));
 				
 				//DTO객체를 List컬렉션에 추가
 				bbs.add(dto);
@@ -213,6 +213,7 @@ public class BbsDAO
 		return bbs;
 	}
 	
+	////////////////////////////////////////////////////////////////////
 	//조회수 증가
 	public void updateVisitCount(String num)
 	{
@@ -238,7 +239,8 @@ public class BbsDAO
 		}
 	}
 	
-	//게시물 가져오기
+	////////////////////////////////////////////////////////////////////
+	//게시물 가져오기(상세보기)
 	public BbsDTO selectView(String num)
 	{
 		BbsDTO dto = new BbsDTO();
@@ -285,5 +287,115 @@ public class BbsDAO
 		}
 		return dto;
 	}
-
+	
+	////////////////////////////////////////////////////////////////////
+	//게시물 수정하기
+	public int updateEdit(BbsDTO dto)
+	{
+		int affected = 0;
+		try
+		{
+			String query = " UPDATE board SET "
+					+ " title=?, content=? "
+					+ " WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setNString(1, dto.getTitle());
+			psmt.setNString(2, dto.getContent());
+			psmt.setNString(3, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			System.out.println("update중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+		//업데이트가 잘 되었으면 1이 반환, 잘못 되었으면 초기값인 0이 반환된다!
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	//게시물 삭제하기
+	public int delete(BbsDTO dto)
+	{
+		int affected = 0;
+		try
+		{
+			String query = "DELETE FROM board WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setNString(1, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			System.out.println("delete중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
+	
+	////////////////////////////////////////////////////////////////////
+	//페이지 처리하기!
+	public List<BbsDTO> selectListPage(Map<String,Object> map)
+	{
+		List<BbsDTO> bbs = new Vector<BbsDTO>();
+		
+		String query = " "
+				+ " SELECT * FROM ( "
+				+ " SELECT Tb.*, ROWNUM rNum FROM ( "
+				+ " SELECT * FROM board ";
+		if(map.get("Word")!=null)
+		{
+			query += " WHERE " + map.get("Column") + " "
+				+ " LIKE '%" + map.get("Word") + "%' ";
+		}
+		query += " "
+			+ " ORDER BY num DESC "
+			+ " ) Tb "
+			+ " ) "
+			+ " WHERE rNum BETWEEN ? AND ?";
+		System.out.println("쿼리문 : "+ query);
+		
+		try
+		{
+			psmt = con.prepareStatement(query);
+			
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next())
+			{
+				BbsDTO dto = new BbsDTO();
+				
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				
+				bbs.add(dto);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Select시 예외발생");
+			e.printStackTrace();
+		}
+		
+		return bbs;
+	}
+	
+	
+	
+	String query = " UPDATE board SET "
+			+ " title=?, content=? "
+			+ " WHERE num=?";
 }

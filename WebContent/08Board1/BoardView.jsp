@@ -83,10 +83,59 @@
 			</div>
 			<div class="row mb-3">
 				<div class="col-6">
+				<%
+				/*
+					로그인이 완료된 상태에서만 수정/삭제 버튼이 보이게 처리한다^^
+					- 하지만 문제가 있다! 남의 글도 보인다는거...
+					그래서 앤드연산자(&&)를 사용해서 if문에 조건을 더 건다!
+					즉,
+					로그인이 완료된 상태에서만 수정/삭제 버튼이 보이게 처리함과 동시에
+					작성자에게만 노출되도록 한다. equals(dto.getId())
+					작성자가 아니면 버튼은 숨김처리된다!
+				*/
+				if(session.getAttribute("USER_ID")!=null && 
+					session.getAttribute("USER_ID").toString().equals(dto.getId()))
+				{
+				%>
+					<!-- 
+						게시물 수정하기는 특정게시물에 대해 수행되는 작업이므로
+						반드시 게시물의 일련번호(PK)가 파라미터로 전달되어야 한다.
+						수정은 (상세보기 + 글쓰기)가 포함된 형태로 구현해야 한다! 
+					-->
 					<button type="button" class="btn btn-secondary"
-						onclick="">수정하기</button>
+						onclick="location.href='BoardEdit.jsp?num=<%=dto.getNum()%>'">
+						<!-- BoardEdit로 현재 게시물의 일련번호까지 파라미터로 전송한다 -->
+						수정하기
+					</button>
 					<button type="button" class="btn btn-success"
-						onclick="">삭제하기</button>
+						onclick="isDelete()">삭제하기</button>
+				<%
+				}
+				%>
+				
+				<!-- 
+					게시물 삭제의 경우 로그인 된 상태이므로 해당 게시물의 일련번호만 서버로 전송하면 된다.
+					이 때 hidden폼을 사용하고, JS의 submit()함수를 이용해서 폼값을 전송한다.
+					해당 form태그는 HTML문서 어디든 위치할 수 있다.
+				 -->
+				<form name="deleteFrm">
+					<input type="hidden" name="num" value="<%=dto.getNum() %>" />
+				</form>
+				<script>
+					function isDelete()
+					{
+						var c = confirm("삭제할까요?");
+						
+						if(c)
+						{
+							var f = document.deleteFrm;
+							f.method = "post";
+							f.action = "DeleteProc.jsp"
+							f.submit();
+						}
+					}
+				</script>
+				
 				</div>
 				<div class="col-6 text-right pr-5">					
 					<button type="button" class="btn btn-warning" onclick="location.href='BoardList.jsp';">리스트보기</button>
