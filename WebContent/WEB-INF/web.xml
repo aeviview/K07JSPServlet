@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+<web-app version="3.1" id="WebApp_ID" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <display-name>K07JSPServlet</display-name>
+  
+  <!-- web.xml파일을 수정하면 서버 리스타트를 해야한다! -->
   
   <!-- 
   	배포서술자(Deployment descriptor)
@@ -28,11 +30,11 @@
   <!-- 차후 게시판에서 사용할 페이지 번호의 설정값 -->
   <context-param>
    <param-name>PAGE_SIZE</param-name> <!-- 한 페이지에 표시할 게시물의 갯수 -->
-   <param-value>10</param-value>
+   <param-value>7</param-value>
   </context-param>
   <context-param>
   	<param-name>BLOCK_PAGE</param-name> <!-- 한 블럭당 출력할 페이지의 갯수(1~10 또는 11~20 등) -->
-  	<param-value>5</param-value>
+  	<param-value>3</param-value>
   </context-param>
   
   <!-- 세션 유지시간 설정하기(06Session=>SessionMain) -->

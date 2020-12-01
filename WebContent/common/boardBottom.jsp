@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%-- 파일명 : boardBottom.jsp --%>
 
 <div class="row mb-5 mt-3">		 
 	<div class="col-2">

@@ -11,6 +11,22 @@
  -->
  
  <%
+ /*
+ 	검색 후 파라미터 처리를 위한 추가부분!
+ 		- 리스트에서 검색 후 상세보기, 그리고 다시 리스트보기를 눌렀을 때
+ 		검색이 유지되도록 처리하기 위한 코드
+ */
+ String queryStr = "";
+ String searchColumn = request.getParameter("searchColumn");
+ String searchWord = request.getParameter("searchWord");
+ if(searchWord!=null)
+ {
+	 queryStr += "searchColumn="+searchColumn+"&searchWord="+searchWord;
+ }
+ //2페이지에서 상세보기 했다면 리스트로 돌아갈 때도 페이지가 2페이지로 유지되어야 한다.
+ String nowPage = request.getParameter("nowPage");
+ queryStr += "&nowPage="+nowPage;
+ 
  //파라미터로 전송된 게시물의 일련번호를 받음
  String num = request.getParameter("num");
  
@@ -135,10 +151,13 @@
 						}
 					}
 				</script>
-				
 				</div>
+				
 				<div class="col-6 text-right pr-5">					
-					<button type="button" class="btn btn-warning" onclick="location.href='BoardList.jsp';">리스트보기</button>
+					<button type="button" class="btn btn-warning" 
+						onclick="location.href='BoardList.jsp?<%=queryStr%>';">
+						리스트보기
+					</button>
 				</div>	
 			</div>
 			

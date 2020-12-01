@@ -86,9 +86,9 @@ else //로그인이 된 상태
 						MemberDTO객체에 저장 후 반환받고, 세션영역에 각 정보들을 저장한다.
 				 -->
 				<%=session.getAttribute("USER_NAME") %> 회원님, 
-					로그인 하셨습니다.
+					벌써 몇 번째 로그인이세요?
 				<br />
-				즐거운 시간 보내세요 ^^
+				적당히 로그인하세요!!
 				<br />
 				<a href="Logout.jsp">[로그아웃]</a>
 			</td>

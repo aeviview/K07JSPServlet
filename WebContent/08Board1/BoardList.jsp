@@ -24,6 +24,9 @@ BbsDAO dao = new BbsDAO(drv, url); //DAO객체생성 및 DB커넥션!
 		=> 차후 프로그램 업데이트에 의해 파라미터가 추가되더라도 Map을 사용하면 편하다!
 */
 Map<String, Object> param = new HashMap<String, Object>();
+		
+//Get방식으로 전달되는 폼값을 페이지 번호로 넘겨주기 위해 문자열로 저장
+String queryStr = ""; //queryStr 변수 생성!
 
 //검색어가 입력된 경우 전송된 폼값을 받아 Map에 저장한다
 String searchColumn = request.getParameter("searchColumn");
@@ -37,33 +40,53 @@ if(searchWord!=null)
 {
 	param.put("Column", searchColumn);
 	param.put("Word", searchWord);
+	
+	//검색어가 있을 때 쿼리스트링(queryStr)을 만들어준다
+	queryStr += "searchColumn="+searchColumn+"&searchWord="+searchWord+"&";
 }
 
 //board테이블에 입력된 전체 레코드 갯수를 카운트하여 반환한다.
-int totalRecordCount = dao.getTotalRecordCount(param);
+//int totalRecordCount = dao.getTotalRecordCount(param); //join X
+int totalRecordCount = dao.getTotalRecordCountSearch(param); //join O (작성자이름 검색가능)
 
 /******************** 페이지 처리를 위한 코드 추가 start ********************/
+//한 페이지에 출력할 레코드의 갯수 : 10
 int pageSize =
-Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+	Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+//한 블럭당 출력할 페이지번호의 갯수 : 5
 int blockPage =
-Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
+	Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
 
+//ceil : 무조건 올림처리!
+/*
+	전체 페이지 수 계산 : 게시물이 108개라 가정하면 108/10(페이지수) = 10.8
+											ceil(10.8) => 11페이지가 된다!
+*/
 int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
 
+/*
+	현재페이지번호(nowPage) : 파라미터가 없을 때는 무조건 1페이지로 지정하고,
+					값이 있을 때는 해당값을 얻어와서 숫자로 변경한다.
+					즉, 리스트에 처음 진입했을 때는 1페이지가 된다.
+*/
 int nowPage = (request.getParameter("nowPage")==null
 				|| request.getParameter("nowPage").equals(""))
 				? 1 : Integer.parseInt(request.getParameter("nowPage"));
 
+//현재페이지에 출력할 게시물의 범위를 결정한다.
+//계산식은 교안을 참고한다 (1~10, 11~20, ...)
 int start = (nowPage-1)*pageSize + 1;
 int end = nowPage * pageSize;
 
+//map컬렉션에 게시물의 범위(start랑 end)를 저장하고 DAO로 전달할 준비를 한다! 
 param.put("start", start);
 param.put("end", end);
 /******************** 페이지 처리를 위한 코드 추가 end ********************/
 
 //board테이블의 레코드를 select하여 결과셋을 List컬렉션으로 반환한다.
 //List<BbsDTO> bbs = dao.selectList(param); //페이지처리X
-List<BbsDTO> bbs = dao.selectListPage(param); //페이지처리O
+//List<BbsDTO> bbs = dao.selectListPage(param); //페이지처리O
+List<BbsDTO> bbs = dao.selectListPageSearch(param); //페이지처리O + 회원이름검색O
 
 //DB자원해제
 dao.close();
@@ -92,11 +115,14 @@ dao.close();
 						<select name="searchColumn" class="form-control">
 							<!-- 검색부분이 null값이 아니고 title이라면 selected 한다라는 뜻(밑에 표현식) -->
 							<option value="title"
-							<%=(searchColumn!=null && searchColumn.equals("title")) ? "selected" : "" %>>제목</option>
+								<%=(searchColumn!=null && searchColumn.equals("title")) ? "selected" : "" %>>
+							제목</option>
 							<option value="content"
-							<%=(searchColumn!=null && searchColumn.equals("content")) ? "selected" : "" %>>내용</option>
-							<!-- 이름으로 검색하려면 JDBC와 Join이 필요하므로 차후 업뎃할께 -->
-							<!-- <option value="id">작성자</option> -->
+								<%=(searchColumn!=null && searchColumn.equals("content")) ? "selected" : "" %>>
+							내용</option>
+							<option value="name"
+								<%=(searchColumn!=null && searchColumn.equals("name")) ? "selected" : "" %>>
+							작성자</option>
 						</select>
 					</div>
 					<div class="input-group">
@@ -115,7 +141,7 @@ dao.close();
 				<colgroup>
 					<col width="60px"/>
 					<col width="*"/>
-					<col width="120px"/>
+					<col width="150px"/>
 					<col width="120px"/>
 					<col width="80px"/>
 					<col width="60px"/>
@@ -189,11 +215,11 @@ dao.close();
 						<tr>
 			               <td class="text-center"><%=vNum %></td>
 			               <td class="text-left">
-			                  <a href="BoardView.jsp?num=<%=dto.getNum() %>">
+			                  <a href="BoardView.jsp?num=<%=dto.getNum() %>&nowPage=<%=nowPage %>&<%=queryStr%>">
 			                     <%=dto.getTitle() %>
 			                  </a>
 			               </td>
-			               <td class="text-center"><%=dto.getId() %></td>
+			               <td class="text-center"><%=dto.getName() %><br/>(<%=dto.getId() %>)</td>
 			               <td class="text-center"><%=dto.getPostdate() %></td>
 			               <td class="text-center"><%=dto.getVisitcount() %></td>
 			               <!-- <td class="text-center"><i class="material-icons" style="font-size:20px">
@@ -215,7 +241,7 @@ dao.close();
 <!-- 					<button type="button" class="btn">Basic</button> -->
 						<button type="button" class="btn btn-primary"
 						onclick="location.href='BoardWrite.jsp';">글쓰기</button>
-						<!-- 바깥쪽에는 더블쿼테이션 안쪽에는 싱글쿼테이션을 써야지 에러가 생기지 않는다! -->
+<!-- 						바깥쪽에는 더블쿼테이션 안쪽에는 싱글쿼테이션을 써야지 에러가 생기지 않는다! -->
 <!-- 					<button type="button" class="btn btn-secondary">수정하기</button> -->
 <!-- 					<button type="button" class="btn btn-success">삭제하기</button> -->
 <!-- 					<button type="button" class="btn btn-info">답글쓰기</button> -->
@@ -240,11 +266,18 @@ dao.close();
 					-->
 					
 					<%= PagingUtil.pagingBS4(totalRecordCount, pageSize,
-						blockPage, nowPage, "BoardList.jsp?") %>
+						blockPage, nowPage, "BoardList.jsp?"+queryStr) %>
+						
 					</ul>
-				</div>				
+				</div>
 			</div>		
 		<!-- ########## 게시판의 body 부분 end ########## -->
+			<div class="text-center">
+				<%-- 텍스트 기반의 페이지번호 출력하기 PagingUtil.java참고--%>
+				<%= PagingUtil.pagingTxt(totalRecordCount, pageSize,
+						blockPage, nowPage, "BoardList.jsp?"+queryStr) %>
+							
+			</div>
 		</div>
 	</div>
 	

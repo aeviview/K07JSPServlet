@@ -161,6 +161,39 @@ public class BbsDAO
 		return totalCount;
 	}
 	
+	//member테이블과 join해서 게시물 갯수를 카운트한다
+	public int getTotalRecordCountSearch(Map<String, Object> map)
+	{
+		//게시물의 갯수는 최초 0으로 초기화
+		int totalCount = 0;
+		
+		//기본쿼리문(전체레코드를 대상으로 한다!)
+		String query = "SELECT COUNT(*) FROM board B "
+				+ "			inner join member M "
+				+ "				on B.id = M.id ";
+		
+		//JSP페이지에서 검색어를 입력한 경우 where절이 동적으로 추가된다.
+		if(map.get("Word")!=null)
+		{
+			query += " WHERE " + map.get("Column") + " "
+					+ " LIKE '%" + map.get("Word") + "%'";
+		}
+		System.out.println("query=" + query);
+		
+		try
+		{
+			psmt = con.prepareStatement(query); //쿼리실행 후 결과 값 반환!
+			rs = psmt.executeQuery();
+			rs.next();
+			totalCount = rs.getInt(1); //totalCount가 결과값을 받는다
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return totalCount;
+	}
+	
 	/*
 	  	게시판 리스트에서 조건에 맞는 레코드를 select하여 ResultSet을
 	  	List컬렉션에 저장한 후 반환하는 메소드
@@ -340,11 +373,12 @@ public class BbsDAO
 	}
 	
 	////////////////////////////////////////////////////////////////////
-	//페이지 처리하기!
+	//페이지(게시물) 처리하기!
 	public List<BbsDTO> selectListPage(Map<String,Object> map)
 	{
 		List<BbsDTO> bbs = new Vector<BbsDTO>();
 		
+		//쿼리문이 아래와 같이 페이지처리 쿼리문으로 변경되었다!
 		String query = " "
 				+ " SELECT * FROM ( "
 				+ " SELECT Tb.*, ROWNUM rNum FROM ( "
@@ -360,6 +394,18 @@ public class BbsDAO
 			+ " ) "
 			+ " WHERE rNum BETWEEN ? AND ?";
 		System.out.println("쿼리문 : "+ query);
+		
+		/*
+		<제일 안 쪽에 있는 쿼리문!> 요것만 있으면 어떤 테이블/컬럼에 다 적용된다고 하심!
+		+ " SELECT * FROM board ";
+		if(map.get("Word")!=null)
+		{
+			query += " WHERE " + map.get("Column") + " "
+				+ " LIKE '%" + map.get("Word") + "%' ";
+		}
+		query += " "
+			+ " ORDER BY num DESC "
+		*/
 		
 		try
 		{
@@ -393,6 +439,76 @@ public class BbsDAO
 		return bbs;
 	}
 	
+	////////////////////////////////////////////////////////////////////
+	//게시판 리스트 + 페이지처리 + 회원이름으로 검색기능 추가!
+	public List<BbsDTO> selectListPageSearch(Map<String,Object> map)
+	{
+		List<BbsDTO> bbs = new Vector<BbsDTO>();
+		
+		//쿼리문이 아래와 같이 페이지처리 쿼리문으로 변경되었다!
+		String query = " "
+				+ " SELECT * FROM ( "
+				+ " SELECT Tb.*, ROWNUM rNum FROM ( "
+				
+				+ "		SELECT B.*, M.name FROM board B "
+				+ "       INNER JOIN member M "
+			    + "       	ON B.id = M.id " ;
+			if(map.get("Word")!=null)
+			{
+				query += "     WHERE "+map.get("Column")+" LIKE '%"+map.get("Word")+"%' ";
+			}
+			query += " 	ORDER BY num DESC	"
+					+ " ) Tb "
+				+ " ) "
+				+ " WHERE rNum BETWEEN ? AND ?";
+		System.out.println("쿼리문 : "+ query);
+		
+		/*
+		<제일 안 쪽에 있는 쿼리문!> 요것만 있으면 어떤 테이블/컬럼에 다 적용된다고 하심!
+		+ " SELECT * FROM board ";
+		if(map.get("Word")!=null)
+		{
+			query += " WHERE " + map.get("Column") + " "
+				+ " LIKE '%" + map.get("Word") + "%' ";
+		}
+		query += " "
+			+ " ORDER BY num DESC "
+		*/
+		
+		try
+		{
+			psmt = con.prepareStatement(query);
+			
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next())
+			{
+				BbsDTO dto = new BbsDTO();
+				
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				
+				//member테이블과의 JOIN으로 이름이 추가되었다!
+				dto.setName(rs.getString("name"));
+				
+				bbs.add(dto);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Select시 예외발생");
+			e.printStackTrace();
+		}
+		
+		return bbs;
+	}
 	
 	
 	String query = " UPDATE board SET "

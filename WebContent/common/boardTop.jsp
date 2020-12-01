@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%-- 파일명 : boardTop.jsp --%> 
+    
 <div class="col-12">          
    <!-- 
       .bg-primary, .bg-success, .bg-info, .bg-warning, .bg-danger, .bg-secondary, 

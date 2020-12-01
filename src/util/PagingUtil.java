@@ -1,3 +1,5 @@
+//Java파일을 수정하면 서버 리스타트를 해야한다!
+
 package util;
 
 //게시판 페이징 구현절차에서 계산식들이 포함되어 있다!
@@ -111,6 +113,65 @@ public class PagingUtil
 			pagingStr += "<a href='"+pageName+"nowPage="+intTemp+"'><img src='../images/paging3.gif'></a>";
 			pagingStr += "&nbsp;";
 			pagingStr += "<a href='"+pageName+"nowPage="+totalPage+"'><img src='../images/paging4.gif'></a>";
+		}
+
+		return pagingStr;
+	}
+///////////////////////////////////////////////////////////////////////////////////////////	
+	//페이지번호를 순수 텍스트로 표현한다!
+	public static String pagingTxt(int totalRecordCount,
+			int pageSize, int blockPage, int nowPage, String pageName) 
+	{
+		
+		String pagingStr = "";
+		//전체페이지 수를 계산한다!
+		int totalPage =	(int)(Math.ceil(((double)totalRecordCount/pageSize)));
+		//페이지블럭 상태를 표현하기 위한 계산식
+		int intTemp = (((nowPage-1) / blockPage) * blockPage) + 1;
+		
+		/*
+		  	첫번째 페이지 블럭이라면 이전블럭이 존재하지 않으므로 화면상에 표시하지 않는다.
+		  	두번째 블럭부터 표시한다!
+		 */
+		if(intTemp != 1) 
+		{
+			pagingStr += "<a href='"+pageName+"nowPage=1'>[첫페이지로]</a>";
+			pagingStr += "&nbsp;";
+			pagingStr += "<a href='"+pageName+"nowPage="+(intTemp-1)+"'>[이전블록으로]</a>";
+		}
+
+		int blockCount = 1;
+		//각 페이지 바로가기 BLOCK_PAGE의 설정값만큼 반복한다!
+		//여기서는 5페이지 반복되는걸 while문으로 표시하였다!
+		/*
+		  	BLOCK_PAGE의 설정값만큼 반복하는 것을 기본으로 하지만,
+		  	전체페이지를 넘어갈 수는 없으므로 ex)11페이지까지인데 15페이지까지 표시됨
+		  	남은 페이지만큼 반복하기 위해 두번째 조건을 추가한다.
+		 */
+		while(blockCount<=blockPage && intTemp<=totalPage)
+		{
+			if(intTemp==nowPage)
+			{
+				pagingStr += "&nbsp;"+intTemp+"&nbsp;"; //현재페이지면 링크가 걸리지 않게한다
+				//예를들면 현재 8페이지면 8페이지를 누를 수 없게 하는 것이다!
+			}						
+			else //현재페이지가 아닐 때는 링크가 있어야 한다!
+			{
+				pagingStr += "&nbsp;";
+				pagingStr += "<a href='"+pageName+"nowPage="+intTemp+"'>"+intTemp+"</a>";
+				pagingStr += "&nbsp;";
+			}
+			intTemp++;
+			blockCount++;
+		}
+
+		if(intTemp <= totalPage) 
+		{
+			//다음 페이지 블록으로 바로가기 링크
+			pagingStr += "<a href='"+pageName+"nowPage="+intTemp+"'>[다음블록으로]</a>";
+			pagingStr += "&nbsp;";
+			//마지막 페이지 블록으로 바로가기 링크
+			pagingStr += "<a href='"+pageName+"nowPage="+totalPage+"'>[마지막페이지로]</a>";
 		}
 
 		return pagingStr;
