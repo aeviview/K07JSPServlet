@@ -21,8 +21,8 @@
 		이 때 파라미터도 같이 전달됨!
 	 -->
 	<jsp:forward page="ObjectResult.jsp">
-		<jsp:param value="200" name="firstNum"></jsp:param>
-		<jsp:param value="300" name="secondNum" />
+		<jsp:param value="200" name="firstNum" ></jsp:param> 
+		<jsp:param value="300" name="secondNum" /> <!-- 위에처럼 써도 되고 그냥 /만 해도된다 -->
 	</jsp:forward>
 </body>
 </html>

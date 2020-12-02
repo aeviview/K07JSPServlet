@@ -81,7 +81,7 @@
 		<li> ${param.firstNum + param['secondNum'] }</li>
 		<!-- EL식 안에서 실제로 산술연산이 되어 500 출력됨 -->
 		<li> ${param.firstNum } + ${param['secondNum'] }</li> <!-- EL식 밖에서 덧셈 -->
-		<!-- EL식 밖에서  -->
+		<!-- EL식 밖에서 덧셈되어 출력 결과는 200 + 300으로 된다! -->
 	</ul>
 
 </body>
