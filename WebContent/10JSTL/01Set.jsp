@@ -77,7 +77,7 @@
 		<li>directVar : ${pageScope.directVar }</li>
 		<li>elVar : ${elVar }</li>
 		<li>expVar : ${expVar }</li>
-		<li>betweenVar : ${betweenval }</li>
+		<li>betweenVar : ${betweenVar }</li>
 	</ul>
 	
 	<h2>set태그로 자바빈 객체설정</h2>
