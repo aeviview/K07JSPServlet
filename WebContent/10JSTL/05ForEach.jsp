@@ -15,20 +15,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h2>일반 for문 형태의 forEach태그</h2>
-	
-	<h3>JSTL 및 EL로 Hn태그 출력하기</h3>
-	<c:foreach begin="1" end="6" var="i">
-		<h${i }>난 h${i }태그입니다</h${i }>
-	</c:foreach>
-	
-	<h3>varStatus속성 살펴보기</h3>
-
-
-
-
-
-
 
 	<h2>일반 for문 형태의 forEach태그</h2>
    
@@ -95,7 +81,7 @@
    <br />
    
    <!-- 
-   		JSTL사이에 HTML주석을 삽입해야 할 때는 하나의 문장이 완전히 끝난 이후 삽입해라
+   		JSTL사이에 HTML주석을 삽입해야 할 때는 하나의 문장이 완전히 끝난 이후 삽입해라!
    		choose와 when사이에 주석이 삽입되면 에러가 발생한다.
     -->
    <h4>choose문 사용하기</h4>
@@ -133,11 +119,10 @@
 
 <h2>구구단 출력하기</h2>
    <!-- 
-	   	시나리오] JSTL의 forEach문을 이용하여 구구단을 출력하시오.
-	      table태그를 사용해야 하고, 
-	      짝수행에 마우스 오버시 빨간색으로
-	      홀수행에 마우스 오버시 노란색으로 바뀌게 코드를 작성하시오.
-    -->
+		시나리오] JSTL의 forEach문을 이용하여 구구단을 출력하시오.
+			table태그를 사용해야 하고, 짝수행에 마우스 오버시 빨간색으로
+			홀수행에 마우스 오버시 노란색으로 바뀌게 코드를 작성하시오.
+	 -->
 	<h3>JSTL로 출력하기</h3>
 	   <table border="1">
 	   <c:forEach begin="2" end="9" var="i">

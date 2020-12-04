@@ -1,5 +1,6 @@
 package eltag;
 
+import model.MemberDAO;
 
 /*
   	<EL에서 Java클래스의 메소드 호출 절차 및 방법>
@@ -57,8 +58,16 @@ public class MyTagLib
 		return returnStr;
 	}
 	
+/////////////////////////////////////////////////////////////////
+	//ChooseWhenOtherwise.jsp의 연습문제
+	public static boolean memberLogin(String id, String pw, String drv, String url)
+	{
+		MemberDAO dao = new MemberDAO(drv, url);
+		boolean isBool = dao.isMember(id, pw);
+		return isBool;
+	}
 	
-	
+/////////////////////////////////////////////////////////////////	
 	
 	public static void main(String[] args)
 	{

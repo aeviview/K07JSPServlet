@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="my" uri="myTagLibTld" %> 
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,9 +62,9 @@
 	
 	<!-- 
 	시나리오] JDBC를 사용하여 회원인 경우 "X님 반갑습니다" 아닌 경우,
-		"로그인 후 사용하세요"라는 메세지를 출력하는 프로그램을 작성하시오. 
-		단, 태그라이브러리(TLD)를 정의한 후 EL식으로
-		자바의 함수를 호출하는 방식으로 구현해야 한다. 
+			"로그인 후 사용하세요"라는 메세지를 출력하는 프로그램을 작성하시오. 
+			단, 태그라이브러리(TLD)를 정의한 후 EL식으로
+			자바의 함수를 호출하는 방식으로 구현해야 한다. 
 		메소드형식] memberLogin(아이디,패스워드,JDBC드라이버,커넥션URL)
 	 -->	 
 	<h3>로그인 구현(JDBC사용)</h3>
@@ -75,9 +76,20 @@
 		<input type="submit" value="로그인" />
 	</form>
 	
-		
+	<c:if test="${not empty param.userid }"> 
+		<c:choose>
+			<c:when test="${my:memberLogin(param.userid,param.userpw,initParam.JDBCDriver,initParam.ConnectionURL)}">
+				${param.userid } 회원님! 반갑습니다.
+			</c:when>
+			<c:otherwise>
+				넌 회원이 아니잖아!
+			</c:otherwise>
+		</c:choose>
+	</c:if>	
 	
-	
+	<div>
+		${MyTagLib.memberLogin(param.userid,param.userpw,initParam.JDBCDriver,initParam.ConnectionURL) }
+	</div>
 	
 </body>
 </html>

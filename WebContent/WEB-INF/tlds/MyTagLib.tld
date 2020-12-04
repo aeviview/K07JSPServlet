@@ -41,5 +41,14 @@
 	    <function-class>eltag.MyTagLib</function-class>
 	    <function-signature>java.lang.String getGender(java.lang.String)</function-signature>
   	</function>
+  	
+  	
+  	<!-- 04Choose에서 memberLogin함수를 사용하기 위해 여기서 등록한다 -->
+  	<function>
+	    <name>memberLogin</name>
+	    <function-class>eltag.MyTagLib</function-class>
+	    <function-signature>boolean memberLogin(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</function-signature>
+  	</function>
+  	
  
 </taglib>

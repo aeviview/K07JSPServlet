@@ -178,6 +178,44 @@ public class MemberDAO
 	
 //////////////////////////////////////////////////////////////////////////
 	
+	//10JSTL/08Url 마지막 부분!
+	//아이디만 전달하면 회원정보를 Map컬렉션으로 반환한다!
+	public Map<String, String> getMemberMap(String id)
+	{
+		//회원정보를 저장할 Map컬렉션을 생성한다
+		Map<String, String> maps = new HashMap<String, String>();
+		
+		String query = "SELECT id, pass, name FROM "
+				+ " member WHERE id=?";
+		
+		try
+		{
+			psmt = con.prepareStatement(query); //prepare 객체생성
+			psmt.setString(1, id); //인파라미터 설정
+			rs = psmt.executeQuery(); //쿼리실행
+			
+			//회원정보가 있다면 put()을 통해 정보를 저장한다
+			if(rs.next()) //오라클이 반환해준 ResultSet을 통해 결과값이 있는지 확인하고
+			{
+				maps.put("id", rs.getString(1)); //결과값이 있으면 maps 객체에 저장한다
+				maps.put("pass", rs.getString("pass"));
+				maps.put("name", rs.getString("name"));
+			}
+			else
+			{
+				System.out.println("결과값이 없습니다");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("getMemberDTO오류");
+			e.printStackTrace();
+		}
+		return maps;
+	}
+	
+//////////////////////////////////////////////////////////////////////////
+	
 	public static void main(String[] args) 
 	{		
 		new MemberDAO();
