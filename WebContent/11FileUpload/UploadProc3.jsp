@@ -111,8 +111,8 @@ try
 	dto.setName(name);
 	dto.setTitle(title);
 	dto.setInter(inter.toString());
-	dto.setOfile(mr.getOriginalFileName("chumFile1")); //원본파일명
-	dto.setSfile(realFileName); //서버에 저장된 파일명
+	dto.setOfile(mr.getOriginalFileName("chumFile1")); //원본파일명(중요)
+	dto.setSfile(realFileName); //서버에 저장된 파일명(중요)ㄴ
 	
 	//DAO객체 생성 후 DB연결 및 insert처리
 	MyFileDAO dao = new MyFileDAO(application);
@@ -122,7 +122,7 @@ try
 	response.sendRedirect("FileList.jsp");
 	//////////////////////////////////////////////
 }
-catch(Exception e)
+catch(Exception e) //파일업로드를 실패한 case
 {
 	request.setAttribute("errorMessage", "파일업로드오류");
 	request.getRequestDispatcher("FileUploadMain.jsp").forward(request, response);

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.ServletContext;
 
@@ -70,6 +72,46 @@ public class MyFileDAO
 		
 		return affected;
 		
+	}
+	
+////////////////////////////////////////////////////////////////
+//Download2.jsp에서 쿼리문 날리는 소스!
+	
+	public List<MyFileDTO> myFileList()
+	{
+		List<MyFileDTO> fileList = new Vector<MyFileDTO>();
+		
+		String query = "SELECT * FROM myfile "
+				+ " WHERE 1=1 "
+				+ " ORDER BY idx DESC ";
+		System.out.println("query=" + query);
+		
+		try
+		{
+			psmt = con.prepareStatement(query);
+			rs = psmt.executeQuery();
+			while(rs.next()) 
+			{
+				MyFileDTO dto = new MyFileDTO();
+				
+				dto.setIdx(rs.getString(1));
+				dto.setName(rs.getString(2));
+				dto.setTitle(rs.getNString(3));
+				dto.setInter(rs.getNString(4));
+				dto.setOfile(rs.getNString(5));
+				dto.setSfile(rs.getNString(6));
+				dto.setPostdate(rs.getNString(7));
+				
+				fileList.add(dto);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Select시 예외발생");
+			e.printStackTrace();
+		}
+		
+		return fileList;
 	}
 	
 }

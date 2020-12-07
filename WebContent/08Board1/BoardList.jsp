@@ -15,7 +15,10 @@ String drv = application.getInitParameter("JDBCDriver");
 String url = application.getInitParameter("ConnectionURL");
 
 //bbs : Bulletin Board System 으로 전자게시판이라는 뜻이다
-BbsDAO dao = new BbsDAO(drv, url); //DAO객체생성 및 DB커넥션!
+//BbsDAO dao = new BbsDAO(drv, url); //DAO객체생성 및 DB커넥션!
+
+//커넥션풀(DBCP)을 이용한 DB연결
+BbsDAO dao = new BbsDAO();
 
 /*
 	파라미터를 저장할 용도로 생성한 Map컬렉션.
