@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%-- 파일명 : Copyright.jsp --%>
+    
 <div class="copy_logo">
 	<img src="http://www.ikosmo.co.kr/images/common/logo_center_v2.jpg" 
 		alt="KOSMO Copyright" />
