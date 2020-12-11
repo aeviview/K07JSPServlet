@@ -21,7 +21,6 @@ public class ViewCtrl extends HttpServlet
 		String idx = req.getParameter("idx");
 		
 		DataroomDAO dao = new DataroomDAO();
-		//일련번호에 해당하는 출력할 게시물을 가져온다
 		
 		//조회수를 증가시킨다.
 		dao.updateVisitCount(idx);

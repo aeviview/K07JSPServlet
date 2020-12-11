@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import util.PagingUtil;
 
 public class ListCtrl extends HttpServlet 
 {
@@ -39,9 +42,52 @@ public class ListCtrl extends HttpServlet
 		int totalRecordCount = dao.getTotalRecordCount(param);
 		//전체 레코드수를 Map에 저장한다. 차후 View로 전달한다. 
 		param.put("totalCount", totalRecordCount);
-				
-		//테이블의 전체 레코드를 가져와서 List 컬렉션에 저장한다. 
-		List<DataroomDTO> lists = dao.selectList(param);
+		
+		
+		////////////////페이지 처리 추가부분 start//////////////////
+		//페이지 수 계산을 위한 페이지 설정 값 가져오기
+		/*
+		 	web.xml의 컨텍스트 초기화 파라미터를 서블릿에서 가져오기 위해
+		 	application내장객체를 메소드를 통해 얻어와서 값을 가져온다.
+		 */
+		ServletContext application = this.getServletContext();
+		int pageSize = Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+		int blockPage = Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
+		
+		//전체 페이지수를 계산한다!
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+		System.out.println("전체레코드 수 :" + totalRecordCount);
+		System.out.println("전체페이지 수 :" + totalPage);
+		
+		//현재 페이지번호를 설정한다. 최초진입시에는 무조건 1로 설정한다.
+		int nowPage = (req.getParameter("nowPage")==null || 
+				req.getParameter("nowPage").equals("")) ? 1 : 
+					Integer.parseInt(req.getParameter("nowPage"));
+		
+		//한페이지에 출력할 게시물의 구간을 정하기 위해 start, end값 계산한다.
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+		
+		//Map 컬렉션에 데이터를 저장한다.
+		param.put("start", start);
+		param.put("end", end);
+		param.put("totalPage", totalPage);
+		param.put("nowPage", nowPage);
+		param.put("totalCount", totalRecordCount);
+		param.put("pageSize", pageSize);
+		
+		
+		String pagingImg = PagingUtil.pagingBS4(
+				totalRecordCount, pageSize, blockPage, nowPage, "../DataRoom/DataList?"+addQueryString);
+		param.put("pagingImg", pagingImg);
+		
+		////////////////페이지 처리 추가부분 end//////////////////
+		
+		// 테이블의 전체 레코드를 가져와서 List 컬렉션에 저장한다.
+	    // 페이지 처리 X
+	    // List<DataroomDTO> lists = dao.selectList(param);
+	    // 페이지 처리 O
+	    List<DataroomDTO> lists = dao.selectListPage(param);
 		 
 		//DB연결을 해제하는것이 아니라 커넥션풀에 개체를 반납한다. 
 		dao.close();

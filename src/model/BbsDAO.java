@@ -398,7 +398,7 @@ public class BbsDAO
 	}
 	
 	////////////////////////////////////////////////////////////////////
-	//페이지(게시물) 처리하기!
+	//게시판 리스트 출력 => 페이지(게시물) 처리하기!
 	public List<BbsDTO> selectListPage(Map<String,Object> map)
 	{
 		List<BbsDTO> bbs = new Vector<BbsDTO>();
@@ -534,9 +534,5 @@ public class BbsDAO
 		
 		return bbs;
 	}
-	
-	
-	String query = " UPDATE board SET "
-			+ " title=?, content=? "
-			+ " WHERE num=?";
+
 }

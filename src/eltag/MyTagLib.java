@@ -60,6 +60,7 @@ public class MyTagLib
 	
 /////////////////////////////////////////////////////////////////
 	//ChooseWhenOtherwise.jsp의 연습문제
+	//아이디/패스워드/DB연결을 위한 드라이버명, URL을 인자로 전달받아 회원여부를 판단하는 메소드!
 	public static boolean memberLogin(String id, String pw, String drv, String url)
 	{
 		MemberDAO dao = new MemberDAO(drv, url);
@@ -69,6 +70,7 @@ public class MyTagLib
 	
 /////////////////////////////////////////////////////////////////	
 	
+	//메소드 테스트를 위한 main메소드
 	public static void main(String[] args)
 	{
 		boolean result1 = isNumber("1234");

@@ -30,11 +30,11 @@
   <!-- 차후 게시판에서 사용할 페이지 번호의 설정값 -->
   <context-param>
    <param-name>PAGE_SIZE</param-name> <!-- 한 페이지에 표시할 게시물의 갯수 -->
-   <param-value>7</param-value>
+   <param-value>10</param-value>
   </context-param>
   <context-param>
   	<param-name>BLOCK_PAGE</param-name> <!-- 한 블럭당 출력할 페이지의 갯수(1~10 또는 11~20 등) -->
-  	<param-value>3</param-value>
+  	<param-value>10</param-value>
   </context-param>
   
   <!-- 세션 유지시간 설정하기(06Session=>SessionMain) -->
@@ -204,6 +204,21 @@
 		<servlet-name>DataRoomEdit</servlet-name>
 		<url-pattern>/DataRoom/DataEdit</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 파일 다운로드 -->
+	
+	<servlet>
+		<servlet-name>DataRoomDownload</servlet-name>
+		<servlet-class>controller.DownloadCtrl</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>DataRoomDownload</servlet-name>
+		<url-pattern>/DataRoom/Download</url-pattern>
+	</servlet-mapping>
+  
+  
+  
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

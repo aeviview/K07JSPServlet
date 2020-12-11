@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +13,6 @@
 		</div>
 		<div class="row">		
 			<jsp:include page="../common/boardLeft.jsp" />
-		
 			<div class="col-9 pt-3">
 			
 			<!-- ########## 게시판의 body 부분 start ########## -->
@@ -69,25 +66,25 @@
 					<div class="col-6">
 						
 						<button type="button" class="btn btn-secondary"
-							onclick="location.href='../DataRoom/DataPassword?idx=${param.idx}&mode=edit&nowPage=${param.nowPage }';">
+							onclick="location.href='../DataRoom/DataPassword?mode=edit&idx=${param.idx}&nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }';">
 							수정하기
 						</button>
 						
 						<button type="button" class="btn btn-success"
-							onclick="location.href='../DataRoom/DataPassword?idx=${dto.idx }&mode=delete&nowPage=${param.nowPage }';">
+							onclick="location.href='../DataRoom/DataPassword?mode=delete&idx=${dto.idx }&nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }';">
 							삭제하기</button>
 			
 					</div>
 					
 					<div class="col-6 text-right pr-5">					
 						<button type="button" class="btn btn-warning" 
-							onclick="location.href='./DataList?nowPage=${param.nowPage}';">
+							onclick="location.href='./DataList?nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }';">
 							리스트보기
 						</button>
 					</div>	
 				</div>
-			
 		<!-- ########## 게시판의 body 부분 end ########## -->
+		
 			</div>
 		</div>
 		
@@ -96,4 +93,5 @@
 
 	</div>
 </body>
+
 </html>

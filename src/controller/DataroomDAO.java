@@ -13,21 +13,25 @@ import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
-public class DataroomDAO {
+public class DataroomDAO 
+{
 	
 	Connection con;
 	PreparedStatement psmt;
 	ResultSet rs;
 	
 	//기본생성자에서 DBCP(커넥션풀)을 통해 DB연결(인자가 하나임)
-	public DataroomDAO() {
-		try {
+	public DataroomDAO() 
+	{
+		try 
+		{
 			Context initCtx = new InitialContext();
 			Context ctx = (Context)initCtx.lookup("java:comp/env");			 
 			DataSource source = (DataSource)ctx.lookup("jdbc/myoracle");
 			con = source.getConnection();
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.println("DBCP연결실패");
 			e.printStackTrace();
 		}		
@@ -52,14 +56,17 @@ public class DataroomDAO {
 		}
 	}
 	
-	public void close() {
-		try {
+	public void close() 
+	{
+		try 
+		{
 			//연결을 해제하는것이 아니고 풀에 다시 반납한다. 
 			if(rs!=null) rs.close();
 			if(psmt!=null) psmt.close();
 			if(con!=null) con.close();
 		}
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			System.out.println("자원반납시 예외발생");
 		}
 	}
@@ -68,10 +75,12 @@ public class DataroomDAO {
 	public int getTotalRecordCount(Map map)
 	{
 		int totalCount = 0;
-		try{
+		try
+		{
 			String sql = "SELECT COUNT(*) FROM dataroom ";
 			
-			if(map.get("Word")!=null){
+			if(map.get("Word")!=null)
+			{
 				sql +=" WHERE "+map.get("Column")+" "
 					+ " LIKE '%"+map.get("Word")+"%' ";
 			}
@@ -91,13 +100,15 @@ public class DataroomDAO {
 		List<DataroomDTO> bbs = new Vector<DataroomDTO>();
 
 		String sql = "SELECT * FROM dataroom ";
-		if(map.get("Word")!=null){
+		if(map.get("Word")!=null)
+		{
 			sql +=" WHERE "+map.get("Column")+" "
 				+ " LIKE '%"+map.get("Word")+"%' ";
 		}
 		sql += " ORDER BY idx DESC";
 
-		try{
+		try
+		{
 			psmt = con.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next())
@@ -117,17 +128,20 @@ public class DataroomDAO {
 				bbs.add(dto);
 			}
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 
 		return bbs;
 	}
 	
+	//자료실 글쓰기 처리
 	public int insert(DataroomDTO dto)
 	{
 		int affected = 0; 
-		try{
+		try
+		{
 			String sql = "INSERT INTO dataroom ("
 				+ " idx,title,name,content,attachedfile,pass,downcount) "
 				+ " VALUES ("
@@ -142,7 +156,8 @@ public class DataroomDAO {
 			//insert성공시 1반환, 실패시 0반환
 			affected = psmt.executeUpdate();
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 		return affected;
@@ -158,11 +173,13 @@ public class DataroomDAO {
 
 		String sql = "SELECT * FROM dataroom "
 			+ " WHERE idx=?";
-		try{
+		try
+		{
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, idx);
 			rs = psmt.executeQuery();
-			if(rs.next()){
+			if(rs.next())
+			{
 				dto = new DataroomDTO();
 
 				dto.setIdx(rs.getString(1));
@@ -176,7 +193,8 @@ public class DataroomDAO {
 				dto.setVisitcount(rs.getInt(9));//조회수추가
 			}
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 
@@ -189,7 +207,8 @@ public class DataroomDAO {
 		String sql = "UPDATE dataroom SET "
 			+ " visitcount=visitcount+1 "
 			+ " WHERE idx=? ";
-		try{
+		try
+		{
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, idx);
 			psmt.executeUpdate();
@@ -198,9 +217,11 @@ public class DataroomDAO {
 	}
 	
 	//게시판의 일련번호, 패스워드를 통한 검증(수정, 삭제시 호출된다)
-	public boolean isCorrectPassword(String pass, String idx) {
+	public boolean isCorrectPassword(String pass, String idx) 
+	{
 		boolean isCorr = true;
-		try {
+		try 
+		{
 			//패스워드와 일련번호가 모두(AND)같을 때를 찾는다
 			String sql = "SELECT COUNT(*) FROM dataroom "
 					+ " WHERE pass=? AND idx=?";
@@ -210,12 +231,13 @@ public class DataroomDAO {
 			rs = psmt.executeQuery();
 			rs.next();
 			
-			if(rs.getInt(1)==0) {
-				//패스워드 검증 실패(해당하는 게시물이 없다)
+			if(rs.getInt(1)==0) //패스워드 검증 실패(해당하는 게시물이 없다)
+			{
 				isCorr = false;
 			}
 		}
-		catch(Exception e) {
+		catch(Exception e)
+		{
 			isCorr = false;
 			e.printStackTrace();
 		}
@@ -247,9 +269,11 @@ public class DataroomDAO {
 	
 	
 	//게시물 수정
-	public int update(DataroomDTO dto) {
+	public int update(DataroomDTO dto) 
+	{
 		int affected = 0;
-		try {
+		try 
+		{
 			String query = "UPDATE dataroom SET"
 					+ " title=?, name=?, content=? " 
 					+ " , attachedfile=?, pass=?  "
@@ -267,7 +291,8 @@ public class DataroomDAO {
 
 			affected = psmt.executeUpdate();
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.println("update중 예외발생");
 			e.printStackTrace();
 		}
@@ -277,20 +302,25 @@ public class DataroomDAO {
 
 	
 	//파일 다운로드 수 증가
-	public void downCountPlus(String idx){
+	public void downCountPlus(String idx)
+	{
 		String sql = "UPDATE dataroom SET "
 			+ " downcount=downcount+1 "
 			+ " WHERE idx=? ";
-		try{
+		try
+		{
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, idx);
 			psmt.executeUpdate();
 		}
-		catch(Exception e){}
+		catch(Exception e)
+		{
+			
+		}
 	}	
 	
 
-	
+	//페이지 설정
 	public List<DataroomDTO> selectListPage(Map map)
 	{
 		List<DataroomDTO> bbs = new Vector<DataroomDTO>();
@@ -300,7 +330,8 @@ public class DataroomDAO {
 			+"    SELECT Tb.*, rownum rNum FROM ("
 			+"        SELECT * FROM dataroom ";
 
-		if(map.get("Word")!=null){
+		if(map.get("Word")!=null)
+		{
 			sql +=" WHERE "+map.get("Column")+" "
 				+ " LIKE '%"+map.get("Word")+"%' ";
 		}
@@ -311,7 +342,8 @@ public class DataroomDAO {
 
 		System.out.println("쿼리문:"+sql);
 
-		try{
+		try
+		{
 			//3.prepare 객체생성 및 실행
 			psmt = con.prepareStatement(sql);
 
@@ -339,13 +371,11 @@ public class DataroomDAO {
 				bbs.add(dto);
 			}
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 
 		return bbs;
-	}
-	
-	 
-	
+	}	
 }

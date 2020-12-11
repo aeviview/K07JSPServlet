@@ -2,7 +2,8 @@ package controller;
 
 import java.sql.Date;
 
-public class DataroomDTO {
+public class DataroomDTO 
+{
     //멤버변수
 	private String idx;
     private String name;
@@ -14,60 +15,79 @@ public class DataroomDTO {
     private String pass;
     private int visitcount;
      
-	public String getIdx() {
+	public String getIdx() 
+	{
 		return idx;
 	}
-	public void setIdx(String idx) {
+	public void setIdx(String idx) 
+	{
 		this.idx = idx;
 	}
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
-	public String getTitle() {
+	public String getTitle() 
+	{
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(String title) 
+	{
 		this.title = title;
 	}
-	public String getContent() {
+	public String getContent() 
+	{
 		return content;
 	}
-	public void setContent(String content) {
+	public void setContent(String content) 
+	{
 		this.content = content;
 	}
-	public java.sql.Date getPostdate() {
+	public java.sql.Date getPostdate() 
+	{
 		return postdate;
 	}
-	public void setPostdate(java.sql.Date postdate) {
+	public void setPostdate(java.sql.Date postdate) 
+	{
 		this.postdate = postdate;
 	}
-	public String getAttachedfile() {
+	public String getAttachedfile()
+	{
 		return attachedfile;
 	}
-	public void setAttachedfile(String attachedfile) {
+	public void setAttachedfile(String attachedfile) 
+	{
 		this.attachedfile = attachedfile;
 	}
-	public int getDowncount() {
+	public int getDowncount() 
+	{
 		return downcount;
 	}
-	public void setDowncount(int downcount) {
+	public void setDowncount(int downcount) 
+	{
 		this.downcount = downcount;
 	}
-	public String getPass() {
+	public String getPass() 
+	{
 		return pass;
 	}
-	public void setPass(String pass) {
+	public void setPass(String pass) 
+	{
 		this.pass = pass;
 	}
-	public int getVisitcount() {
+	public int getVisitcount() 
+	{
 		return visitcount;
 	}
-	public void setVisitcount(int visitcount) {
+	public void setVisitcount(int visitcount) 
+	{
 		this.visitcount = visitcount;
 	}
+	
     //답변형게시판 추가를 위한 getter/setter
 	/*public int getBgroup() {
 		return bgroup;
@@ -87,8 +107,5 @@ public class DataroomDTO {
 	public void setBindent(int bindent) {
 		this.bindent = bindent;
 	}*/
-    
-	
-	
 	
 }

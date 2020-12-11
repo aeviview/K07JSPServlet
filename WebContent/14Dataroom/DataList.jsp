@@ -13,12 +13,13 @@
 	<div class="row">		
 		<jsp:include page="../common/boardLeft.jsp" />
 		<div class="col-9 pt-3">
-		<!-- ### 게시판의 body 부분 start ### -->
+		
+		<!-- ########## 게시판의 body 부분 start ########## -->
 			<h3>자료실 - <small>Model2방식의 Servlet게시판</small></h3>
 			<h4>${test }</h4>
 			
 			<div class="row">
-				<!-- 검색부분 -->
+				<!---------- 검색 부분 ---------->
 				<form class="form-inline ml-auto">	
 					<div class="form-group">
 					<select name="searchColumn" class="form-control">
@@ -40,7 +41,7 @@
 			</div>
 			
 			<div class="row mt-3">
-				<!-- 게시판리스트부분 -->
+				<!---------- 게시판 리스트 부분 ---------->
 				<table class="table table-bordered table-hover table-striped">
 				<colgroup>
 					<col width="60px"/>
@@ -86,7 +87,7 @@
 									${map.totalCount - (((map.nowPage-1) * map.pageSize) + loop.index)}   
 								</td>
 								<td class="text-left">
-									<a href="../DataRoom/DataView?idx=${row.idx }&nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }">${row.title }</a>
+									<a href="../DataRoom/DataView?idx=${row.idx }&nowPage=${map.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }">${row.title }</a>
 								</td>
 								<td class="text-center">${row.name }</td>
 								<td class="text-center">${row.postdate }</td>
@@ -112,7 +113,7 @@
 					<!-- 각종 버튼 부분 -->
 					<!-- <button type="button" class="btn">Basic</button> -->
 					<button type="button" class="btn btn-primary" 
-						onclick="location.href='../DataRoom/DataWrite';">글쓰기</button>
+						onclick="location.href='../DataRoom/DataWrite?nowPage=${map.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }';">글쓰기</button>
 <!-- 					<button type="button" class="btn btn-secondary">수정하기</button> -->
 <!-- 					<button type="button" class="btn btn-success">삭제하기</button> -->
 <!-- 					<button type="button" class="btn btn-info">답글쓰기</button> -->
@@ -126,7 +127,10 @@
 			
 			<div class="row mt-3">
 				<div class="col">
-					<!-- 페이지번호 부분 -->
+					<!-- 페이지번호 기본이미지 -->
+					<div style="text-align:center;padding:0 0 10px 0;">
+						${map.pagingImg } </div>
+					<!-- 페이지번호 부트스트랩4 적용 -->
 					<ul class='pagination justify-content-center'>
 						<!-- 매개변수설명
 						totalRecordCount : 게시물의 전체갯수

@@ -9,10 +9,10 @@ import java.sql.Date;
 */
 
 /*
- 우클릭 - source에서 
- - constructors from Superclass(기본생성자)
- - constructor using Fields(인자생성자)
- - Getters and Setters(게터/세터)
+	 우클릭 - source에서 
+	 - constructors from Superclass(기본생성자)
+	 - constructor using Fields(인자생성자)
+	 - Getters and Setters(게터/세터)
 */
 public class MemberDTO 
 {

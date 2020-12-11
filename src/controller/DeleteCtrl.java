@@ -18,6 +18,7 @@ public class DeleteCtrl extends HttpServlet
 		
 		String idx = req.getParameter("idx");
 		String nowPage = req.getParameter("nowPage");
+		req.setAttribute("nowPage", nowPage);
 		
 		DataroomDAO dao = new DataroomDAO();
 		//첨부파일 삭제를 위해 기존의 게시물을 가져와서 DTO객체에 저장한다.

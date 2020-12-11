@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.MemberDAO;
 
  
-public class SimpleMVC extends HttpServlet{
+public class SimpleMVC extends HttpServlet
+{
 	
 	/*
 	클라이언트의 요청이 get방식이든 post방식이든 하나의 메소드에
@@ -21,12 +22,14 @@ public class SimpleMVC extends HttpServlet{
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		processRequest(req, resp);
 	}	
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+	{
 		processRequest(req, resp);
 	}
  
@@ -36,7 +39,8 @@ public class SimpleMVC extends HttpServlet{
 	두가지에 대한 예외를 반드시 처리해야한다.(서블릿 제작시 규칙)
 	 */
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		
 		//request객체를 통해 파라미터를 받는다.
 		String type = req.getParameter("type");
@@ -48,10 +52,12 @@ public class SimpleMVC extends HttpServlet{
 		Object resultObj = null;
 
 		//파라미터를 통해 요청을 분석한다.  
-		if(type==null) {
+		if(type==null) 
+		{
 			resultObj = "파라미터가 없네욤..!!";
 		}
-		else if(type.equals("greeting")) {
+		else if(type.equals("greeting")) 
+		{
 			
 			/*
 			서블릿 클래스에서 application내장객체를 사용하기 위해
@@ -69,18 +75,22 @@ public class SimpleMVC extends HttpServlet{
 
 			boolean isMember = dao.isMember(id, pw);
 
-			if(isMember==true) {
+			if(isMember==true) 
+			{
 				resultObj = "회원님 방가방가^^*";
 			}
-			else {
-				resultObj = "넌 회원이 아니시군-_-;";
+			else 
+			{
+				resultObj = "넌 회원이 아니군 누구지?;";
 			}
 		}
-		else if(type.equals("date")) {
+		else if(type.equals("date")) 
+		{
 			resultObj = new java.util.Date();
 		}
-		else {
-			resultObj = "허~얼~";
+		else 
+		{
+			resultObj = "헐랭퀴";
 		}
 		//결과를 request영역에 저장한다. 
 		req.setAttribute("result", resultObj);
