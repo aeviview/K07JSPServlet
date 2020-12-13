@@ -62,7 +62,7 @@ if(strAge != null)
 		<input type="text" name="age" />
 		<input type="submit" value="확인" />
 		<br />
-		※나이를 입력하지 않고 전송하면 에러가 발생됩니다.
+		※나이를 입력하지 않고 전송하면 에러가 발생됩니다. 알겠니?
 	</form>
 	<span style="color:red; font-size:2em;">
 	<% if(ageAfter10 != -1)
