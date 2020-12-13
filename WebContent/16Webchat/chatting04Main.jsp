@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- 일단 여기까지 확인했어 내일은  common 폴더부터 확인하자! -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>chatting04Main.jsp</title>
-
 </head>
 <body>
 	<script>

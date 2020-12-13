@@ -1,4 +1,5 @@
 //Java파일을 수정하면 서버 리스타트를 해야한다!
+//xml파일을 수정해도 서버 리스타트를 해야한다!
 
 package util;
 
@@ -58,6 +59,8 @@ public class PagingUtil
 			intTemp++;
 			blockCount++;
 		}
+		
+		System.out.println(intTemp + "<>" + totalPage);
 		
 		if(intTemp <= totalPage)
 		{

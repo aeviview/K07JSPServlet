@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    
 <!DOCTYPE html>
 <html>
@@ -127,28 +128,20 @@
 			
 			<div class="row mt-3">
 				<div class="col">
-					<!-- 페이지번호 기본이미지 -->
-					<div style="text-align:center;padding:0 0 10px 0;">
-						${map.pagingImg } </div>
 					<!-- 페이지번호 부트스트랩4 적용 -->
 					<ul class='pagination justify-content-center'>
-						<!-- 매개변수설명
-						totalRecordCount : 게시물의 전체갯수
-						pageSize : 한페이지에 출력할 게시물의 갯수
-						blockPage : 한 블록에 표시할 페이지번호의 갯수
-						nowPage : 현제페이지 번호
-						"BoardList.jsp?" : 해당 게시판의 실행 파일명
+						${map.pagingImg }
+						<!-- <매개변수설명>
+							totalRecordCount : 게시물의 전체 갯수
+							pageSize : 한페이지에 출력할 게시물의 갯수
+							blockPage : 한 블록에 표시할 페이지번호의 갯수
+							nowPage : 현제페이지 번호
+							"BoardList.jsp?" : 해당 게시판의 실행 파일명
 						-->
 						 
 					</ul>
 				</div>								
 			</div>		
-		
-		<!-- ### 게시판의 body 부분 end ### -->
-			<%-- 텍스트 기반의 페이지번호 출력하기 --%>
-			<div class="text-center">				
-				
-			</div>
 		</div>
 	</div>
 	

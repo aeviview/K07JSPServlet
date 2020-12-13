@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,12 +20,12 @@
 				<h3>게시판 - <small>View(상세보기)</small></h3>
 				
 				<div class="row mt-3 mr-1">
-					<table class="table table-bordered" border=1 width=90%>
+					<table class="table table-bordered">
 						<colgroup>
 							<col width="20%"/>
 							<col width="30%"/>
 							<col width="20%"/>
-							<col width="30%"/>
+							<col width="*"/>
 						</colgroup>
 					<tbody>
 						<tr>
@@ -45,7 +46,7 @@
 						</tr>
 						<tr>
 							<th class="text-center table-active align-middle">내용</th>
-							<td colspan="3" class="align-middle" style="height:150px;">${dto.content }</td>
+							<td colspan="3" class="align-middle" style="height:200px;">${dto.content }</td>
 						</tr>
 						<tr>
 							<th class="text-center table-active align-middle">첨부파일</th>

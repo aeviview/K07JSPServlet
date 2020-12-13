@@ -22,7 +22,7 @@ public class SMTPAuth extends Authenticator
 	@Override
 	protected PasswordAuthentication getPasswordAuthentication()
 	{
-		return new PasswordAuthentication("aeviview", "mario54595259^^");
+		return new PasswordAuthentication("aeviview", "비밀번호입력!");
 	}
 	
 	//해당 메소드를 통해 이메일을 발송한다.

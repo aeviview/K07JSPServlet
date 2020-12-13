@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   
 <!DOCTYPE html>
 <html>
@@ -45,6 +46,7 @@
 		}
 	}
 	</script>
+	
 		<div class="row mt-3 mr-1">
 			<table class="table table-bordered table-striped">
 	
@@ -67,11 +69,11 @@
 				파일을 등록하지 않으면 기존 파일명으로 데이터를 유지하게 된다.
 			 -->
 	 
-			<table  class="table table-bordered" border=1  width=800>	
-				<colgroup>
-					<col width="20%"/>
-					<col width="*"/>
-				</colgroup>
+				
+			<colgroup>
+				<col width="20%"/>
+				<col width="*"/>
+			</colgroup>
 			<tbody>
 				<tr>
 					<th class="text-center align-middle table-active">작성자</th>

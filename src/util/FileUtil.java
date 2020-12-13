@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class FileUtil {
+public class FileUtil 
+{
 	
 	public static MultipartRequest upload(HttpServletRequest req, String saveDirectory){
 		
@@ -20,18 +21,20 @@ public class FileUtil {
 		/*
 		매개변수1 : 사용자의 요청 정보가 저장된 request내장객체
 		매개변수2 : 파일이 저장된 서버의 물리적 경로
-		그외 업로드할 파일의 최대용량, 인코딩방식, 파일명 중복처리를 위한 클래스를
-		통해 MultipartRequest객체를 생성한다. 
-		객체생성이 완료되면 파일은 업로드된다. 		
+			그 외 업로드 할 파일의 최대용량, 인코딩방식, 파일명 중복처리를 위한
+			클래스를 통해 MultipartRequest객체를 생성한다. 
+			객체생성이 완료되면 파일은 업로드된다. 		
 		 */
-		try{
+		try
+		{
 			mr = new MultipartRequest(req, 
 					saveDirectory,
 					1024*1024,
 					"UTF-8",
 					new DefaultFileRenamePolicy());
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 		
@@ -111,17 +114,17 @@ public class FileUtil {
 			request.getHeader("user-agent").toUpperCase().indexOf("11.0")
 			!= -1;
 			
-			if(isIE)
-			{//인터넷 익스플로러
+			if(isIE)//인터넷 익스플로러
+			{
 				sfileName = URLEncoder.encode(sfileName, "UTF-8");
 			}
 			else//기타 웹브라우져
 			{
 			/*
 			new String(byte[] bytes, String charset)사용
-			1) 파일명을 byte형 배열로 변환
-			2) String클래스의 생성자에 
-				변환한 배열과 charset는 8859_1을 지정함.
+				1) 파일명을 byte형 배열로 변환
+				2) String클래스의 생성자에 
+					변환한 배열과 charset는 8859_1을 지정함.
 			*/
 				sfileName 
 					= new String(sfileName.getBytes("UTF-8"),"8859_1");
@@ -134,9 +137,9 @@ public class FileUtil {
 			IO작업을 통해서 서버에 있는 파일을 웹브라우저에 바로 출력
 			
 			데이터소스 : 파일 - 노드스트림 : FileInputStream
-								필터스트림 : BufferedInputStream
+						       필터스트림 : BufferedInputStream
 			데이터목적지 : 웹브라우저 - 노드스트림 : response.getOutputStream();
-										필터스트림 : BufferedOutputStream
+								   필터스트림 : BufferedOutputStream
 			*/
 			//5.서버에 있는 파일에 연결할 입력스트림 생성
 			BufferedInputStream bis 
@@ -166,7 +169,7 @@ public class FileUtil {
 	
 	/*
 	 	파일 다운로드 처리(2) : 원본파일명과 저장된 파일명을 지정하여
-	 				파일 다운로드시 파일명을 원본파일명으로 변경한다.
+	 					파일 다운로드시 파일명을 원본파일명으로 변경한다.
 	 */
 	public static void download(
 			HttpServletRequest request,
@@ -176,10 +179,9 @@ public class FileUtil {
 
 	/*
 	파일다운로드 원리
-	1.웹브라우저가 인식하지 못하는 컨텐츠타입을 응답헤더에 설정해주면
-	웹브라우저는 자체 다운로드 창을 띄운다.
-	
-	2.서버에 저장된 파일을 출력스트림을 통해 웹브라우저에 출력한다.
+		1.웹브라우저가 인식하지 못하는 컨텐츠타입을 응답헤더에 설정해주면
+			웹브라우저는 자체 다운로드 창을 띄운다.
+		2.서버에 저장된 파일을 출력스트림을 통해 웹브라우저에 출력한다.
 	*/
 		
 		try

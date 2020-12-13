@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   
 <!DOCTYPE html>
 <html>
@@ -49,6 +50,7 @@
 		}
 	}
 	</script>
+	
 	<div class="row mt-3 mr-1">
 		<table class="table table-bordered table-striped">
 	
@@ -64,6 +66,7 @@
 			<col width="20%"/>
 			<col width="*"/>
 		</colgroup>
+		
 		<tbody>
 			<tr>
 				<th class="text-center align-middle">작성자</th>
@@ -105,8 +108,10 @@
 				</td>
 			</tr>
 		</tbody>
+		
 		</table>
 	</div>
+	
 		<div class="row mb-3">
 			<div class="col text-right">		
 				<button type="submit" class="btn btn-danger">전송하기</button>

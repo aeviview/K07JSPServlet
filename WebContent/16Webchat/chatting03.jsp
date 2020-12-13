@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +38,7 @@
 		//접속자  ID를 가져오는 부분(현재는 랜덤하게 생성되는 세션아이디를 사용)
 		var chat_id = document.getElementById('chat_id').value;
 		//웹소켓 객체를 생성하여 채팅서버에 접속
-		var webSocket = new WebSocket('ws://localhost:8080/K07JSPServlet/ChatServer02');
+		var webSocket = new WebSocket('ws://localhost:8282/K07JSPServlet/ChatServer02');
 		
 		/*
 			웹소켓 서버에 연결한 후 메세지 전송, 에러발생 등은
