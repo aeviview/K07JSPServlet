@@ -5,7 +5,7 @@
     
 <div class="copy_logo">
 	<img src="http://www.ikosmo.co.kr/images/common/logo_center_v2.jpg" 
-		alt="KOSMO Copyright" />
+		alt="KOSMO Copyright" widh="150"/>
 </div>
 <div class="copy_info">
 	(주)한국소프트웨어아이앤씨(153-759) 

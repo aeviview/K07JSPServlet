@@ -49,7 +49,7 @@
 <%
 if(session.getAttribute("USER_ID")==null){
 %>
-	<!-- 로그인이 안된 상태(리스트에 첫 진입시...) -->
+	<!-- 로그인이 안 된 상태(리스트에 첫 진입시) -->
 	<li class="nav-item">
 		<a class="nav-link text-dark" href="javascript:alert('준비중');"><i 
 			class='fas fa-edit' style='font-size:20px'></i>회원가입</a>
@@ -61,7 +61,7 @@ if(session.getAttribute("USER_ID")==null){
 <%
 }else{ 
 %>
-	<!-- 로그인이 된 상태(글쓰기를 위해 회원인증 후...) -->
+	<!-- 로그인이 된 상태(글쓰기를 위해 회원인증 후) -->
 	<li class="nav-item">
 		<a class="nav-link text-dark" href="#" onclick="alert('준비중')"><i 
 			class='fa fa-cogs' style='font-size:20px'></i>회원정보수정</a>
