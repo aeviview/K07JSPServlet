@@ -33,7 +33,7 @@
    <param-value>10</param-value>
   </context-param>
   <context-param>
-  	<param-name>BLOCK_PAGE</param-name> <!-- 한 블럭당 출력할 페이지의 갯수(1~10 또는 11~20 등) -->
+  	<param-name>BLOCK_PAGE</param-name> <!-- 한 블럭당 출력할 페이지의 갯수(1~10 또는 11~20 등등) -->
   	<param-value>10</param-value>
   </context-param>
   

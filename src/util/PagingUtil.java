@@ -39,7 +39,11 @@ public class PagingUtil
 						+ "<a href='"+pageName+"nowPage="+(intTemp-1)+"' class='page-link'>"
 							+ "<i class='fas fa-angle-left'></i></a></li>";
 		}
+		
 		int blockCount = 1;
+		
+		//이 while문은 예를 들어 페이지가 14번까지 있으면 11 ~ 20번까지 블록이 나오는게 아니라
+		//11 ~ 14까지만 나올 수 있도록 지정하는 while문이다!
 		while(blockCount<=blockPage && intTemp<=totalPage)
 		{
 			//페이지 바로가기(현재 BLOCK_PAGE가 5로 설정되므로 5개씩 페이지번호가 출력된다)

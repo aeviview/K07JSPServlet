@@ -16,8 +16,9 @@ import util.PagingUtil;
 public class ListCtrl extends HttpServlet 
 {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@Override //반환값은 void
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+	{
 		
 		//DAO객체 생성 및 커넥션풀을 통한 DB연결
 		DataroomDAO dao = new DataroomDAO();
@@ -29,12 +30,13 @@ public class ListCtrl extends HttpServlet
 		//검색어 관련 파라미터 처리
 		String searchColumn = req.getParameter("searchColumn");
 		String searchWord = req.getParameter("searchWord");
+		
 		if(!(searchWord==null || searchWord.equals("")))
 		{
 			//검색어가 있는경우 파라미터를 Map에 저장하고, 쿼리스트링을 만들어준다.
 			addQueryString = String.format("searchColumn=%s&searchWord=%s&", 
 					searchColumn, searchWord);
-			param.put("Column", searchColumn);
+			param.put("Column", searchColumn); //put은 set같이 설정한다는 뜻이다.
 			param.put("Word", searchWord);
 		}
 
@@ -51,13 +53,15 @@ public class ListCtrl extends HttpServlet
 		 	application내장객체를 메소드를 통해 얻어와서 값을 가져온다.
 		 */
 		ServletContext application = this.getServletContext();
+		
 		int pageSize = Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
 		int blockPage = Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
 		
 		//전체 페이지수를 계산한다!
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
-		System.out.println("전체레코드 수 :" + totalRecordCount);
-		System.out.println("전체페이지 수 :" + totalPage);
+		
+		System.out.println("전체 레코드 수 :" + totalRecordCount);
+		System.out.println("전체 페이지 수 :" + totalPage);
 		
 		//현재 페이지번호를 설정한다. 최초진입시에는 무조건 1로 설정한다.
 		int nowPage = (req.getParameter("nowPage")==null || 
@@ -68,7 +72,7 @@ public class ListCtrl extends HttpServlet
 		int start = (nowPage-1) * pageSize + 1;
 		int end = nowPage * pageSize;
 		
-		//Map 컬렉션에 데이터를 저장한다.
+		//Map 컬렉션에 데이터를 저장한다. put을 이용해서 저장한다!(set과 같은 녀석)
 		param.put("start", start);
 		param.put("end", end);
 		param.put("totalPage", totalPage);
@@ -93,7 +97,8 @@ public class ListCtrl extends HttpServlet
 		dao.close();
 		
 		//데이터를 request영역에 저장한다. 
-		req.setAttribute("test", "매핑확인용");
+		//req.setAttribute("test", "매핑확인용");
+		//JSP로가서 뿌리기 위해 request영역에 저장한다!
 		req.setAttribute("lists", lists);
 		req.setAttribute("map", param);		
 		

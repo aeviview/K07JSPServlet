@@ -47,7 +47,8 @@
 		</form>
 <ul class="navbar-nav ml-auto" >
 <%
-if(session.getAttribute("USER_ID")==null){
+if(session.getAttribute("USER_ID")==null)
+{
 %>
 	<!-- 로그인이 안 된 상태(리스트에 첫 진입시) -->
 	<li class="nav-item">
@@ -59,7 +60,9 @@ if(session.getAttribute("USER_ID")==null){
 			class='fas fa-sign-in-alt' style='font-size:20px'></i>로그인</a>
 	</li>
 <%
-}else{ 
+}
+else
+{ 
 %>
 	<!-- 로그인이 된 상태(글쓰기를 위해 회원인증 후) -->
 	<li class="nav-item">

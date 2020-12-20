@@ -75,6 +75,7 @@ public class DataroomDAO
 	public int getTotalRecordCount(Map map)
 	{
 		int totalCount = 0;
+		
 		try
 		{
 			String sql = "SELECT COUNT(*) FROM dataroom ";
@@ -90,8 +91,13 @@ public class DataroomDAO
 			rs.next();
 			totalCount = rs.getInt(1);
 		}
-		catch(Exception e){}
-		return totalCount;
+		catch(Exception e)
+		{
+			
+		}
+		
+		return totalCount; //반환값이 int기 때문에 꼭 return을 해줘야한다.
+		//return을 하면 요청한 부분으로 다시 돌아간다!
 	}
 
 	//게시물을 가져와서 ResultSet형태로 반환
@@ -321,7 +327,7 @@ public class DataroomDAO
 	
 
 	//페이지 설정
-	public List<DataroomDTO> selectListPage(Map map)
+	public List<DataroomDTO> selectListPage(Map param)
 	{
 		List<DataroomDTO> bbs = new Vector<DataroomDTO>();
 
@@ -330,10 +336,10 @@ public class DataroomDAO
 			+"    SELECT Tb.*, rownum rNum FROM ("
 			+"        SELECT * FROM dataroom ";
 
-		if(map.get("Word")!=null)
+		if(param.get("Word")!=null)
 		{
-			sql +=" WHERE "+map.get("Column")+" "
-				+ " LIKE '%"+map.get("Word")+"%' ";
+			sql +=" WHERE "+param.get("Column")+" "
+				+ " LIKE '%"+param.get("Word")+"%' ";
 		}
 		sql += " ORDER BY idx DESC"
 		+"    ) Tb"
@@ -348,11 +354,12 @@ public class DataroomDAO
 			psmt = con.prepareStatement(sql);
 
 			psmt.setInt(1,
-				Integer.parseInt(map.get("start").toString()));
+				Integer.parseInt(param.get("start").toString()));
 			psmt.setInt(2,
-				Integer.parseInt(map.get("end").toString()));
+				Integer.parseInt(param.get("end").toString()));
 
 			rs = psmt.executeQuery();
+			
 			while(rs.next())
 			{
 				//4.결과셋을 DTO객체에 담는다.
