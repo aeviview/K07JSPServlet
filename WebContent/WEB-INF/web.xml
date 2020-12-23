@@ -44,7 +44,6 @@
   	<session-timeout>60</session-timeout>
   </session-config>
   
-  
   <!-- 
 	<EL에서 Java클래스의 메소드 호출 절차 및 방법>
   	1. 클래스와 메소드를 정의한다.
@@ -216,8 +215,6 @@
 		<servlet-name>DataRoomDownload</servlet-name>
 		<url-pattern>/DataRoom/Download</url-pattern>
 	</servlet-mapping>
-  
-  
   
   
   <welcome-file-list>
